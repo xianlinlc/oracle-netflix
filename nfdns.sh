@@ -15,9 +15,9 @@ function main {
 	if  [ "$result" == "404" ]
 	then
 	changeip
-	echo "$(date +%Y-%m-%d" "%H:%M:%S) 需要更换" >> /root/netflix.log
+	echo "$(date +%Y-%m-%d" "%H:%M:%S) 需要更换" >> /root/netflix_ip_change.log
 else
-	echo "$(date +%Y-%m-%d" "%H:%M:%S) 无需更换" >> /root/netflix.log
+	echo "$(date +%Y-%m-%d" "%H:%M:%S) 无需更换" >> /root/netflix_ip_not_change.log
     fi
 }
 
