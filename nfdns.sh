@@ -16,8 +16,10 @@ function main {
 	then
 	changeip
 	echo "$(date +%Y-%m-%d" "%H:%M:%S) 需要更换" >> /root/netflix_ip_change.log
+	curl -X POST "https://api.telegram.org/bot6146314523:AAGQhbsWthN0fI-3-Ro5acRqSIJaxp8aI3w/sendMessage" -d "chat_id=-1001856649516&text=需更换"
 else
 	echo "$(date +%Y-%m-%d" "%H:%M:%S) 无需更换" >> /root/netflix_ip_not_change.log
+	curl -X POST "https://api.telegram.org/bot6146314523:AAGQhbsWthN0fI-3-Ro5acRqSIJaxp8aI3w/sendMessage" -d "chat_id=-1001856649516&text=已检测，无需更换"
     fi
 }
 
@@ -51,6 +53,7 @@ function changeip {
 }
 
 function ddns {
+			local instance_id=$(echo "ocid1.instance.oc1.ap-singapore-1.anzwsljr6vnubsacahlmrneg7b3wnkjveu67pg336pqslzczar7wiqszql4a")
 	   		local new_ip=$(oci compute instance list-vnics --instance-id $instance_id --config-file $CONFIG_FILE | jq -r '.[][]."public-ip"')
 
 	   	curl -k -X PUT "https://api.cloudflare.com/client/v4/zones/91cff2018be855393fb5a7acd8b80dbe/dns_records/b3af5fa88920189f9ef785c6f1b53ad2" \
