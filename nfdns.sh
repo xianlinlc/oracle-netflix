@@ -18,8 +18,8 @@ function main {
     elif [ "$result" == "200" ]; then
     ip=$(report_ip)
 	echo "$(date +%Y-%m-%d" "%H:%M:%S) 无需更换" >> /root/netflix_ip_not_change.log
-	curl -X POST "https://api.telegram.org/bot6146314523:AAGQhbsWthN0fI-3-Ro5acRqSIJaxp8aI3w/sendMessage" -d "chat_id=-1001856649516&text=$(TZ=Asia/Shanghai date +%Y-%m-%d" "%H:%M:%S)现在的ip地址是$ip，可以解锁Netflix自制剧"
-	curl -X POST "https://api.telegram.org/bot6146314523:AAGQhbsWthN0fI-3-Ro5acRqSIJaxp8aI3w/sendMessage" -d "chat_id=5403459769&text=$(TZ=Asia/Shanghai date +%Y-%m-%d" "%H:%M:%S)现在的ip地址是$ip，可以解锁Netflix自制剧"
+	curl -X POST "https://api.telegram.org/bot6146314523:AAGQhbsWthN0fI-3-Ro5acRqSIJaxp8aI3w/sendMessage" -d "chat_id=-1001856649516&text=$(TZ=Asia/Shanghai date +%Y-%m-%d" "%H:%M:%S)现在的ip地址是"$ip"，可以解锁Netflix非自制剧🥹"
+	curl -X POST "https://api.telegram.org/bot6146314523:AAGQhbsWthN0fI-3-Ro5acRqSIJaxp8aI3w/sendMessage" -d "chat_id=5403459769&text=$(TZ=Asia/Shanghai date +%Y-%m-%d" "%H:%M:%S)现在的ip地址是"$ip"，可以解锁Netflix非自制剧🥹"
 	return
     fi
 }
