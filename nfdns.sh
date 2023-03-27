@@ -45,7 +45,6 @@ function changeip() {
 	sleep 10
 	ddns
 	sleep 10
-	main
 	return
 }
 function ddns() {
