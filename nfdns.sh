@@ -135,3 +135,4 @@ function ddns {
          	ddns
          fi
 }
+main
