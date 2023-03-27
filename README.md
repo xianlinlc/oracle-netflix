@@ -11,7 +11,7 @@
 
 1.需要海外两台服务器，服务器A运行脚本，服务器B提供解锁服务和代理
 
-2.服务器A需配置好oci环境，请参考 https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm
+2.服务器A需配置oci环境，参考 https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm
 
 3.脚本运行间隔最好不要低于5分钟，否则可能会出现错误
 
