@@ -1,6 +1,6 @@
 #!/bin/bash
 instance_id="实例的ocid"
-compartmentId=$(oci iam user list | jq -r '.[][0]."compartment-id"')
+compartmentId=$(oci iam user list --config-file $CONFIG_FILE | jq -r '.[][0]."compartment-id"')
 CONFIG_FILE='/root/.oci/config'
 BOT_TOKEN="tg机器人的api_token"
 CHAT_ID="CHAT_ID"
