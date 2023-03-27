@@ -19,7 +19,7 @@ readonly CHAT_ID
 readonly instance_id
 
 function main {
-	local result=$(  curl  -x http://nfdns.lc950818.top:50528 -U UOszYQCC1E:iUPdQUqOVm   --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.87 Safari/537.36" -fsL --write-out %{http_code} --output /dev/null  "https://www.netflix.com/title/80000603" 2>&1)
+	local result=$(  curl  -x "此处填写服务器B的代理"  --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.87 Safari/537.36" -fsL --write-out %{http_code} --output /dev/null  "https://www.netflix.com/title/80000603" 2>&1)
 
 	if  [ "$result" == "404" ]
 
