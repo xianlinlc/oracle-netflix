@@ -28,23 +28,29 @@ function main() {
 }
 function changeip() {
 	local public_ip=$(oci compute instance list-vnics --instance-id $instance_id --config-file $CONFIG_FILE | jq -r '.[][]."public-ip"')
+	sleep 10
 	local json=$(oci network public-ip get --public-ip-address $public_ip --config-file $CONFIG_FILE)
+	sleep 10
 	local publicipId=$(echo $json | jq -r '.data.id')
 	local privateipId=$(echo $json | jq -r '.data."private-ip-id"')
 	oci network public-ip delete --public-ip-id $publicipId --force --config-file $CONFIG_FILE
+	sleep 10
 	oci network public-ip create -c $compartmentId --private-ip-id $privateipId --lifetime EPHEMERAL --config-file $CONFIG_FILE
 	sleep 10
 	local new_public_ip=$(oci compute instance list-vnics --instance-id $instance_id --config-file $CONFIG_FILE | jq -r '.[][]."public-ip"')
+	sleep 10
 	echo "$(date +%Y-%m-%d" "%H:%M:%S) 原ip：$public_ip,现ip：$new_public_ip" >>/root/netflix_ip_change.log
 	sleep 10
 	curl -X POST "https://api.telegram.org/"$BOT_TOKEN"/sendMessage" -d "CHAT_ID="$CHAT_ID"&text=$(TZ=Asia/Shanghai date +%Y-%m-%d" "%H:%M:%S)好像出现了点问题，HTTP状态码是"$result""
 	sleep 10
 	ddns
+	sleep 10
 	main
 	return
 }
 function ddns() {
 	local new_public_ip=$(oci compute instance list-vnics --instance-id $instance_id --config-file $CONFIG_FILE | jq -r '.[][]."public-ip"')
+	sleep 10
 	local RECORD_ID=$(
 		curl -s -X GET "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records?type=A&name=$DOMAIN" \
 		-H "X-Auth-Key: $API_KEY" \
@@ -64,6 +70,7 @@ function ddns() {
 		-H "X-Auth-Email: $CF_EMAIL "\
 		-H "Content-Type: application/json"
 	)
+	sleep 10
 	local ip_address=$(echo $response | jq -r '.result[0].content')
 	if [ "$ip_address"=="$new_public_ip" ]; then
 		curl -X POST "https://api.telegram.org/$BOT_TOKEN/sendMessage" -d "CHAT_ID=$CHAT_ID&text=$(TZ=Asia/Shanghai date +%Y-%m-%d" "%H:%M:%S) ddns成功，ip地址为"$ip_address""
