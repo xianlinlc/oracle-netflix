@@ -20,7 +20,7 @@ function main() {
 	elif [ "$result" == "200" ]; then
 		echo "$(date +%Y-%m-%d" "%H:%M:%S) 无需更换" >>/root/netflix_ip_not_change.log
 		curl -X POST "https://api.telegram.org/"$BOT_TOKEN"/sendMessage" -d "CHAT_ID="$CHAT_ID"&text=$(TZ=Asia/Shanghai date +%Y-%m-%d" "%H:%M:%S)已检测，无需更换🥹"
-		return
+		exit 0
 	else
 		curl -X POST "https://api.telegram.org/"$BOT_TOKEN"/sendMessage" -d "CHAT_ID="$CHAT_ID"&text=$(TZ=Asia/Shanghai date +%Y-%m-%d" "%H:%M:%S)好像出现了点问题，HTTP状态码是"$result""
 		main
@@ -45,7 +45,7 @@ function changeip() {
 	sleep 10
 	ddns
 	sleep 10
-	return
+	
 }
 function ddns() {
 	local new_public_ip=$(oci compute instance list-vnics --instance-id $instance_id --config-file $CONFIG_FILE | jq -r '.[][]."public-ip"')
